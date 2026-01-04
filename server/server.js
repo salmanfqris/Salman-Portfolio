@@ -24,8 +24,9 @@ const __dirname = path.resolve();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://salman-portfolio-1.onrender.com/"
+  "https://salman-portfolio-1.onrender.com"
 ];
+
 
 app.use(
   cors({
