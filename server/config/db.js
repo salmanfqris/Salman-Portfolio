@@ -1,26 +1,18 @@
-import mongoose from 'mongoose';
-
-const DEFAULT_URI = 'mongodb://127.0.0.1:27017/portfolio';
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    let mongoURI = process.env.MONGO_URI;
+    const mongoURI = process.env.MONGO_URI;
 
     if (!mongoURI) {
-      console.warn(
-        `MONGO_URI is not defined. Falling back to default local database at ${DEFAULT_URI}`
-      );
-      mongoURI = DEFAULT_URI;
+      throw new Error("MONGO_URI is not defined");
     }
 
-    const conn = await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(mongoURI);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error('Mongo connection error:', error.message);
+    console.error("Mongo connection error:", error.message);
     process.exit(1);
   }
 };
